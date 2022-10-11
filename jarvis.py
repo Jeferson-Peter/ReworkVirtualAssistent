@@ -251,7 +251,7 @@ class Jarvis:
                 engine.setProperty('voice', voices[1].id)
             speak("Hello Sir, I have switched my voice. How is it?")
 
-        elif 'convert currency' in query?
+        elif 'convert currency' in query:
             speak("What's the value you want to convert?")
             value = takeCommand()
             speak("What's the actual currency?")
