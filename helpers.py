@@ -12,7 +12,7 @@ import os
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[0].id)
+# engine.setProperty('voice', voices[0].id)
 g = geocoder.ip('me')
 data = json.load(open('data.json'))
 c = CurrencyConverter()
