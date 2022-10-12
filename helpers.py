@@ -8,7 +8,7 @@ import requests
 import geocoder
 from difflib import get_close_matches
 from currency_converter import CurrencyConverter
-
+import os
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
@@ -23,7 +23,9 @@ def speak(audio) -> None:
 
 def screenshot() -> None:
     img = pyautogui.screenshot()
-    img.save('path of folder you want to save/screenshot.png')
+    home = os.path.expanduser('~')
+    path = f'{home}{os.sep}Downloads{os.sep}screenshot_jarvis.png'
+    img.save(path)
 
 def cpu() -> None:
     usage = str(psutil.cpu_percent())
@@ -48,7 +50,7 @@ def takeCommand() -> str:
 
     try:
         print('Recognizing..')
-        query = r.recognize_google(audio, language='en-in')
+        query = r.recognize_google(audio, language='en-US')
         print(f'User said: {query}\n')
 
     except Exception as e:

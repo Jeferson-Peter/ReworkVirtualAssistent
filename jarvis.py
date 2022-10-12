@@ -5,7 +5,7 @@ import datetime
 import os
 import sys
 import smtplib
-from OCR import OCR
+# from OCR import OCR
 from diction import translate
 from helpers import *
 from youtube import youtube
@@ -59,7 +59,7 @@ def takeCommand():
             # for Listening the command in indian
             # english we can also use 'hi-In'
             # for hindi recognizing
-            Query = r.recognize_google(audio, language='en-in')
+            Query = r.recognize_google(audio, language='en-US')
             print("the command is printed=", Query)
              
         except Exception as e:
@@ -118,22 +118,16 @@ class Jarvis:
         weather()
         speak('I am JARVIS. Please tell me how can I help you SIR?')
 
-    def execute_query(self, query):            
+    def execute_query(self, query):
+        print(query)
         if 'Optical Text Recognition' or 'Text Recognition' in query:
-            OCR()
-            
-        elif 'voice' in query:
-            if 'female' in query:
-                engine.setProperty('voice', voices[1].id)
-            else:
-                engine.setProperty('voice', voices[0].id)
-            speak("Hello Sir, I have switched my voice. How is it?")
-
+            pass
         if 'jarvis are you there' in query:
+            print()
             speak("Yes Sir, at your service")
         if 'jarvis who made you' in query:
             speak("Yes Sir, my master build me in AI")
-            
+
         elif 'cpu' in query:
             cpu()
 
@@ -147,7 +141,7 @@ class Jarvis:
         elif 'open youtube' in query:
 
             webbrowser.get('chrome').open_new_tab('https://youtube.com')
-            
+
         elif 'open amazon' in query:
             webbrowser.get('chrome').open_new_tab('https://amazon.com')
 
@@ -193,7 +187,7 @@ class Jarvis:
             speak('My name is JARVIS')
         elif 'who made you' in query:
             speak('I was created by my AI master in 2022')
-            
+
         elif 'stands for' in query:
             speak('J.A.R.V.I.S stands for JUST A RATHER VERY INTELLIGENT SYSTEM')
         elif 'open code' in query:
@@ -243,13 +237,13 @@ class Jarvis:
         elif 'dictionary' in query:
             speak('What you want to search in your intelligent dictionary?')
             translate(takeCommand())
-
-        elif 'voice' in query:
-            if 'female' in query:
-                engine.setProperty('voice', voices[0].id)
-            else:
-                engine.setProperty('voice', voices[1].id)
-            speak("Hello Sir, I have switched my voice. How is it?")
+        # elif 'voice' in query:
+        #     print('Query: ' + query)
+        #     if 'female' in query:
+        #         engine.setProperty('voice', voices[1].id)
+        #     else:
+        #         engine.setProperty('voice', voices[2].id)
+        #     speak("Hello Sir, I have switched my voice. How is it?")
 
         elif 'convert currency' in query:
             speak("What's the value you want to convert?")
