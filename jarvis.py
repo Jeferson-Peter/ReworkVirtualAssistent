@@ -176,8 +176,6 @@ class Jarvis:
                 os.system('shutdown /p /f')
             elif platform == "linux" or platform == "linux2" or "darwin":
                 os.system('poweroff')
-        elif 'cpu' in query:
-            cpu()
         elif 'your friend' in query:
             speak('My friends are Google assistant alexa and siri')
         elif 'cpu' in query:
