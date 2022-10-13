@@ -14,7 +14,8 @@ import os
 import getpass
 from open_applications import OpenApplications
 
-## todo: 
+## Defined English as Standard language
+## todo:
 ## pesquisa por voz
 ## previsao do tempo (cidade/uf)
 ## cotação de moedas (brl/usd)
@@ -29,9 +30,9 @@ from open_applications import OpenApplications
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[0].id)
-engine.setProperty('rate', 200)
-
+engine.setProperty('rate', 150)
+# engine.setProperty('voice', voices[0].id)
+ 
 # this method is for taking the commands
 # and recognizing the command from the
 # speech_Recognition module we will use
@@ -88,7 +89,22 @@ def speak(audio):
     # Blocks while processing all the currently
     # queued commands
     engine.runAndWait()
- 
+
+def defineLanguageByOSCurrentLanguage():
+    changeVoice()
+
+def changeVoice():
+    for voice in voices:
+        if voice.id.find('EN-US') >= 0:
+            engine.setProperty('voice', voice.id)
+            break
+
+def changeVoiceByGender():
+    actualVoice = engine.getProperty('voice')
+    for voice in voices:
+        if voice.id.find('EN-US') >= 0 and actualVoice != voice.id:
+            engine.setProperty('voice', voice.id)
+            break
  
 class Jarvis:
     def __init__(self) -> None:
@@ -154,7 +170,7 @@ class Jarvis:
             speak('Here is the location ' + location)
         elif 'your master' in query:
             if platform == "win32" or "darwin":
-                speak('I have a team who created me. They created me a couple of days ago')
+                speak('I have a team who created me a couple of days ago')
             elif platform == "linux" or platform == "linux2":
                 name = getpass.getuser()
                 speak(name, 'is my master. He is running me right now')
@@ -201,6 +217,9 @@ class Jarvis:
         elif 'dictionary' in query:
             speak('What you want to search in your intelligent dictionary?')
             translate(takeCommand())
+        elif 'voice' in query:
+            changeVoiceByGender()
+            speak("Hello Sir, I have switched my voice. How is it?")
         elif 'convert currency' in query:
             speak("What's the value you want to convert?")
             value = takeCommand()
@@ -216,6 +235,7 @@ if __name__ == '__main__':
     # main method for executing
     # the functions
     bot_ = Jarvis()
+    defineLanguageByOSCurrentLanguage()
     bot_.wishMe()
     while True:
         query = takeCommand().lower()

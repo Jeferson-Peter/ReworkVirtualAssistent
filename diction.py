@@ -6,7 +6,7 @@ import speech_recognition as sr
 data = json.load(open('data.json'))
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[0].id)
+# engine.setProperty('voice', voices[0].id)
 
 
 def speak(audio):
@@ -25,7 +25,7 @@ def takeCommand():
 
     try:
         print('Recognizing..')
-        query = r.recognize_google(audio, language='en-in')
+        query = r.recognize_google(audio, language='en-US')
         print(f'User said: {query}\n')
 
     except Exception as e:
