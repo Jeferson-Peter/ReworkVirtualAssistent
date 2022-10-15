@@ -8,11 +8,10 @@ import smtplib
 # from OCR import OCR
 from diction import translate
 from helpers import *
-from youtube import youtube
 from sys import platform
 import os
-import getpass
 from open_applications import OpenApplications
+from search import SearchThings
 
 ## Defined English as Standard language
 ## todo:
@@ -30,7 +29,7 @@ from open_applications import OpenApplications
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
-engine.setProperty('rate', 150)
+engine.setProperty('rate', 120)
 # engine.setProperty('voice', voices[0].id)
  
 # this method is for taking the commands
@@ -149,19 +148,11 @@ class Jarvis:
             application.parse_commands()
         elif 'play music' in query:
             os.startfile("D:\\RoiNa.mp3")
-        elif 'search youtube' in query:
-            speak('What you want to search on Youtube?')
-            youtube(takeCommand())
+        elif 'search' in query:
+            SearchThings(query)
         elif 'what time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")
             speak(f'Sir, the time is {strTime}')
-        elif 'search' in query:
-            speak('What do you want to search for?')
-            search = takeCommand()
-            url = 'https://google.com/search?q=' + search
-            webbrowser.open_new_tab(
-                url)
-            speak('Here is What I found for' + search)
         elif 'location' in query:
             speak('What is the location?')
             location = takeCommand()
@@ -169,24 +160,20 @@ class Jarvis:
             webbrowser.get('chrome').open_new_tab(url)
             speak('Here is the location ' + location)
         elif 'your master' in query:
-            if platform == "win32" or "darwin":
                 speak('I have a team who created me a couple of days ago')
-            elif platform == "linux" or platform == "linux2":
-                name = getpass.getuser()
-                speak(name, 'is my master. He is running me right now')
-
         elif 'your name' in query:
             speak('My name is JARVIS')
         elif 'who made you' in query:
-            speak('I was created by my AI master in 2022')
+            speak("I was created by my AI masters in 2022, I can not say you they are but the tip is"
+                  "one of them is the chief of illuminati's organization ")
         elif 'stands for' in query:
             speak('J.A.R.V.I.S stands for JUST A RATHER VERY INTELLIGENT SYSTEM')
-        elif 'open code' in query:
-            if platform == "win32":
-                os.startfile(
-                    "C:\\Users\\gs935\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe")
-            elif platform == "linux" or platform == "linux2" or "darwin":
-                os.system('code .')
+        # elif 'open code' in query:
+        #     if platform == "win32":
+        #         os.startfile(
+        #             "C:\\Users\\gs935\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe")
+        #     elif platform == "linux" or platform == "linux2" or "darwin":
+        #         os.system('code .')
         elif 'shutdown' in query:
             if platform == "win32":
                 os.system('shutdown /p /f')
@@ -199,9 +186,7 @@ class Jarvis:
         elif 'joke' in query:
             joke()
         elif 'screenshot' in query:
-            speak("taking screenshot")
             screenshot()
-            speak("screenshot taken")
         elif 'remember that' in query:
             speak("what should i remember sir")
             rememberMessage = takeCommand()
