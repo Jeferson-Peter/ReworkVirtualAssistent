@@ -12,7 +12,8 @@ from sys import platform
 import os
 from open_applications import OpenApplications
 from search import SearchThings
-
+from _play import PlayThings
+from translate import Translate
 ## Defined English as Standard language
 ## todo:
 ## pesquisa por voz
@@ -146,10 +147,12 @@ class Jarvis:
         elif 'open' in query:
             application = OpenApplications(query)
             application.parse_commands()
-        elif 'play music' in query:
-            os.startfile("D:\\RoiNa.mp3")
         elif 'search' in query:
             SearchThings(query)
+        elif 'play' in query:
+            PlayThings(query)
+        # elif 'translate' in query:
+        #     Translate(query)
         elif 'what time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")
             speak(f'Sir, the time is {strTime}')
@@ -168,12 +171,6 @@ class Jarvis:
                   "one of them is the chief of illuminati's organization ")
         elif 'stands for' in query:
             speak('J.A.R.V.I.S stands for JUST A RATHER VERY INTELLIGENT SYSTEM')
-        # elif 'open code' in query:
-        #     if platform == "win32":
-        #         os.startfile(
-        #             "C:\\Users\\gs935\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe")
-        #     elif platform == "linux" or platform == "linux2" or "darwin":
-        #         os.system('code .')
         elif 'shutdown' in query:
             if platform == "win32":
                 os.system('shutdown /p /f')
