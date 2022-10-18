@@ -15,13 +15,13 @@ from search import SearchThings
 from _play import PlayThings
 from translate import Translate
 ## Defined English as Standard language
-## todo:
-## pesquisa por voz
-## previsao do tempo (cidade/uf)
-## cotação de moedas (brl/usd)
-## lembretes
-## tradução
-## abrir programas (vscode/office/chrome/explorer)
+## todo: 
+## pesquisa por voz - ok
+## previsao do tempo (cidade/uf) - ok
+## cotação de moedas (brl/usd) -ongoing
+## lembretes -ok
+## tradução - ?
+## abrir programas (vscode/office/chrome/explorer) -ok
 ## 
 ## recursos:
 ## nlp (natural language processor)
@@ -37,41 +37,30 @@ engine.setProperty('rate', 120)
 # and recognizing the command from the
 # speech_Recognition module we will use
 # the recongizer method for recognizing
-def takeCommand():
- 
-    r = sr.Recognizer()
- 
-    # from the speech_Recognition module
-    # we will use the Microphone module
-    # for listening the command
-    with sr.Microphone() as source:
-        print('Listening')
-         
-        # seconds of non-speaking audio before
-        # a phrase is considered complete
-        r.pause_threshold = 0.7
-        audio = r.listen(source)
-         
-        # Now we will be using the try and catch
-        # method so that if sound is recognized
-        # it is good else we will have exception
-        # handling
-        try:
-            print("Recognizing")
-             
-            # for Listening the command in indian
-            # english we can also use 'hi-In'
-            # for hindi recognizing
-            Query = r.recognize_google(audio, language='en-US')
-            print("the command is printed=", Query)
-             
-        except Exception as e:
-            print(e)
-            print("Say that again sir")
-            return "None"
-         
-        return Query
- 
+# def takeCommand(): 
+#     r = sr.Recognizer()
+#     with sr.Microphone() as source:
+#         query = ""
+#         while True:
+#             print('Listening...')
+#             r.pause_threshold = 0.7
+#             audio = r.listen(source)
+            
+#             try:
+#                 print("Recognizing")
+                
+#                 query = r.recognize_google(audio, language='en-US')
+#                 print("the command is printed=", query)
+                
+#             except Exception as e:
+#                 print(e)
+#                 print("Say that again sir")
+            
+#             if query != "":
+#                 break
+            
+#         return query
+
 def speak(audio):
      
     engine = pyttsx3.init()
@@ -90,7 +79,7 @@ def speak(audio):
     # queued commands
     engine.runAndWait()
 
-def defineLanguageByOSCurrentLanguage():
+def defineLanguage():
     changeVoice()
 
 def changeVoice():
@@ -184,6 +173,11 @@ class Jarvis:
             joke()
         elif 'screenshot' in query:
             screenshot()
+
+        elif 'github' in query:
+            webbrowser.get('chrome').open_new_tab(
+                'https://github.com/')
+
         elif 'remember that' in query:
             speak("what should i remember sir")
             rememberMessage = takeCommand()
@@ -202,14 +196,12 @@ class Jarvis:
         elif 'voice' in query:
             changeVoiceByGender()
             speak("Hello Sir, I have switched my voice. How is it?")
+
+        elif 'translate' in query:
+            speak('What you want to translate?')
+            translate(takeCommand())
         elif 'convert currency' in query:
-            speak("What's the value you want to convert?")
-            value = takeCommand()
-            speak("What's the actual currency?")
-            currency = takeCommand()
-            speak("What's the currency you want to convert?")
-            converter = takeCommand()
-            currency_converter(value, currency, converter)
+            currency_converter()
 
 
 if __name__ == '__main__':
@@ -217,8 +209,8 @@ if __name__ == '__main__':
     # main method for executing
     # the functions
     bot_ = Jarvis()
-    defineLanguageByOSCurrentLanguage()
-    bot_.wishMe()
+    defineLanguage() 
+    # bot_.wishMe()
     while True:
         query = takeCommand().lower()
         bot_.execute_query(query)

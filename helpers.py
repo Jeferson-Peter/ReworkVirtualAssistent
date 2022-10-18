@@ -34,8 +34,9 @@ def cpu() -> None:
     speak("CPU is at"+usage)
 
     battery = psutil.sensors_battery()
-    speak("battery is at")
-    speak(battery.percent)
+    if battery is not None:
+        speak("battery is at")
+        speak(battery.percent)
 
 def joke() -> None:
     for i in range(5):
@@ -44,23 +45,28 @@ def joke() -> None:
 def takeCommand() -> str:
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print('Listening...')
-        r.pause_threshold = 1
-        r.energy_threshold = 494
-        r.adjust_for_ambient_noise(source, duration=1.5)
-        audio = r.listen(source)
-
-    try:
-        print('Recognizing..')
-        query = r.recognize_google(audio, language='en-US')
-        print(f'User said: {query}\n')
-
-    except Exception as e:
-        # print(e)
-
-        print('Say that again please...')
-        return 'None'
-    return query
+        query = ""
+        while True:
+            print('Listening...')
+            r.pause_threshold = 0.7
+            r.energy_threshold = 494
+            r.adjust_for_ambient_noise(source, duration=1.5)
+            audio = r.listen(source)
+            
+            try:
+                print("Recognizing..")
+                
+                query = r.recognize_google(audio, language='en-US')
+                print(f'User said: {query}\n')
+                
+            except Exception as e:
+                print(e)
+                print("Say that again sir..")
+            
+            if query != "":
+                break
+            
+        return query
 
 def weather():
     api_url = "https://fcc-weather-api.glitch.me/api/current?lat=" + \
@@ -101,13 +107,30 @@ def translate(word):
 
 ## currency = actual currency
 ## converter = convert to
-def currency_converter(value, currency, converter):
+def currency_converter():
+
+    value = getActualCurrencyValue()
+    currency = getActualCurrency()
+    converter = getCurrencyToChange()
+
     try:
-        money = c.convert(value, currency, converter)
+        valueConverted = c.convert(value, currency, converter)
     except Exception as e:
-        ## todo: check if it occur with currency and converter
-        speak("What's the currency you want to convert?")
-        converter = takeCommand()
+        print(e)
 
-    speak("this value equals " + value + converter + "in the current quote")
+    speak("this value equals " + valueConverted + converter + "in the current quote")
 
+def getActualCurrencyValue():
+    speak("What's the value you want to convert?")
+    value = takeCommand()
+    return value
+
+def getActualCurrency():
+    speak("What's the actual currency?")
+    currency = takeCommand()
+    return currency
+
+def getCurrencyToChange():
+    speak("What's the currency you want to convert?")
+    converter = takeCommand()
+    return converter
