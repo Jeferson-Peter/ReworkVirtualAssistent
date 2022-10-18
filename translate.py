@@ -27,8 +27,11 @@ class Translate:
             dest_language = takeCommand().lower()
             min_dest_language = self._parse_dest_lang(dest_language)
             if dest_language is not None:
-                translated = self.translator.translate(phrase_to_translate, dest=dest_language).text
-                speak(f"You asked me to translate the following phrase {phrase_to_translate}")
-                speak(f"The phrase translate to {min_dest_language} is {translated}")
+                try:
+                    translated = self.translator.translate(phrase_to_translate, dest=min_dest_language).text
+                    speak(f"You asked me to translate the following phrase {phrase_to_translate}")
+                    speak(f"The phrase translate to {dest_language} is {translated}")
+                except:
+                    speak("Could not translate, language not supported")
             else:
                 speak("Could not translate, language not supported")
