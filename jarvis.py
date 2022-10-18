@@ -151,8 +151,8 @@ class Jarvis:
             SearchThings(query)
         elif 'play' in query:
             PlayThings(query)
-        # elif 'translate' in query:
-        #     Translate(query)
+        elif 'translate' in query:
+            Translate(query)
         elif 'what time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")
             speak(f'Sir, the time is {strTime}')
