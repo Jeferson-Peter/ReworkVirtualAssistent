@@ -22,7 +22,7 @@ webbrowser.register('chrome', None, webbrowser.BackgroundBrowser(chrome_path))
 def youtube(textToSearch):
     query = urllib.parse.quote(textToSearch)
     url = "https://www.youtube.com/results?search_query=" + query
-    webbrowser.get('chrome').open_new_tab(url)
+    webbrowser.open_new_tab(url)
 
 
 if __name__ == '__main__':

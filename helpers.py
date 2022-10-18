@@ -25,7 +25,9 @@ def screenshot() -> None:
     img = pyautogui.screenshot()
     home = os.path.expanduser('~')
     path = f'{home}{os.sep}Downloads{os.sep}screenshot_jarvis.png'
+    speak("taking screenshot")
     img.save(path)
+    speak("screenshot taken")
 
 def cpu() -> None:
     usage = str(psutil.cpu_percent())
