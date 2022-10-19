@@ -113,12 +113,26 @@ def currency_converter():
     currency = getActualCurrency()
     converter = getCurrencyToChange()
 
+    valueConverted = convert(value, currency, converter)
+
+    speak("this value equals " + valueConverted + converter + "in the current quote")
+
+def convert(value, currency, converter):
     try:
         valueConverted = c.convert(value, currency, converter)
     except Exception as e:
         print(e)
-
-    speak("this value equals " + valueConverted + converter + "in the current quote")
+        ## actual currency error
+        ## if ()
+        ##      value = getActualCurrencyValue()
+        ## currency error
+        ## if ()
+        ##      currency = getActualCurrency()
+        ## converter error
+        ## if ()
+        ##      converter = getCurrencyToChange()
+        convert(value, currency, converter)
+    return valueConverted
 
 def getActualCurrencyValue():
     speak("What's the value you want to convert?")
