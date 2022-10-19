@@ -210,7 +210,7 @@ if __name__ == '__main__':
     # the functions
     bot_ = Jarvis()
     defineLanguage() 
-    bot_.wishMe()
+    # bot_.wishMe()
     while True:
         query = takeCommand().lower()
         bot_.execute_query(query)

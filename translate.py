@@ -1,5 +1,10 @@
+import os
+
 from googletrans import Translator
 from googletrans.constants import LANGUAGES
+from gtts import gTTS
+from playsound import playsound
+
 from helpers import speak, takeCommand
 
 
@@ -26,12 +31,21 @@ class Translate:
             speak("which language do you want to translate?")
             dest_language = takeCommand().lower()
             min_dest_language = self._parse_dest_lang(dest_language)
-            if dest_language is not None:
+            while min_dest_language is None:
+                dest_language = takeCommand().lower()
+                min_dest_language = self._parse_dest_lang(dest_language)
+            if min_dest_language is not None:
                 try:
                     translated = self.translator.translate(phrase_to_translate, dest=min_dest_language).text
                     speak(f"You asked me to translate the following phrase {phrase_to_translate}")
-                    speak(f"The phrase translate to {dest_language} is {translated}")
+                    # speak(f"The phrase translate to {dest_language} is {translated}")
+                    translated_speak = gTTS(text=translated, lang=min_dest_language, slow=False)
+
+                    # speech in capture_voice.mp3
+                    translated_speak.save("captured_voice.mp3")
+
+                    # Using OS module to run the translated voice.
+                    playsound(f"captured_voice.mp3")
+                    os.remove('captured_voice.mp3')
                 except:
-                    speak("Could not translate, language not supported")
-            else:
-                speak("Could not translate, language not supported")
+                    speak("Could not translate, Internal error")

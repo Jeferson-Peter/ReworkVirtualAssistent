@@ -11,7 +11,9 @@ decorator==5.1.1
 Flask==2.2.2
 future==0.18.2
 geocoder==1.38.1
-googletrans==3.0.0
+googletrans==3.1.0a0
+gTTS==2.2.4
+gTTS-token==1.1.4
 h11==0.9.0
 h2==3.2.0
 hpack==3.0.0
@@ -29,6 +31,7 @@ numpy==1.23.3
 opencv-python==4.6.0.66
 packaging==21.3
 Pillow==9.2.0
+playsound==1.2.2
 psutil==5.9.2
 PyAudio==0.2.12
 PyAutoGUI==0.9.53
@@ -56,4 +59,5 @@ SpeechRecognition==3.8.1
 urllib3==1.26.12
 Werkzeug==2.2.2
 wikipedia==1.4.0
+youtube-dl==2021.12.17
 zipp==3.9.0
