@@ -63,14 +63,14 @@ engine.setProperty('rate', 120)
 
 def speak(audio):
      
-    engine = pyttsx3.init()
+    # engine = pyttsx3.init()
     # getter method(gets the current value
     # of engine property)
-    voices = engine.getProperty('voices')
+    # voices = engine.getProperty('voices')
      
     # setter method .[0]=male voice and
     # [1]=female voice in set Property.
-    engine.setProperty('voice', voices[0].id)
+    # engine.setProperty('voice', voices[0].id)
      
     # Method for the speaking of the assistant
     engine.say(audio) 
@@ -140,8 +140,8 @@ class Jarvis:
             SearchThings(query)
         elif 'play' in query:
             PlayThings(query)
-        # elif 'translate' in query:
-        #     Translate(query)
+        elif 'translate' in query:
+            Translate(query)
         elif 'what time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")
             speak(f'Sir, the time is {strTime}')
