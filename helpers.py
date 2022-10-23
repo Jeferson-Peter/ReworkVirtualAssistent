@@ -18,8 +18,8 @@ data = json.load(open('data.json'))
 c = CurrencyConverter()
 
 def speak(audio) -> None:
-        engine.say(audio)
-        engine.runAndWait()
+    engine.say(audio)
+    engine.runAndWait()
 
 def screenshot() -> None:
     img = pyautogui.screenshot()
@@ -66,7 +66,7 @@ def takeCommand() -> str:
             if query != "":
                 break
             
-        return query
+        return query.lower()
 
 def weather():
     api_url = "https://fcc-weather-api.glitch.me/api/current?lat=" + \
@@ -94,7 +94,7 @@ def translate(word):
         x = get_close_matches(word, data.keys())[0]
         speak('Did you mean ' + x +
               ' instead,  respond with Yes or No.')
-        ans = takeCommand().lower()
+        ans = takeCommand()
         if 'yes' in ans:
             speak(data[x])
         elif 'no' in ans:

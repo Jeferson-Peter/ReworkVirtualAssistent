@@ -15,7 +15,7 @@ class SearchThings:
         result = list(set(query_res).intersection(self.search))
         if len(result) <= 0:
             speak('What do you want to search for?')
-            self.query = takeCommand().lower()
+            self.query = takeCommand()
         # if self.query not in self.search:
         if 'youtube' in self.query: self.youtube()
         if 'google' in self.query: self.google()
