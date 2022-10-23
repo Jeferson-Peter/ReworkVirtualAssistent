@@ -33,51 +33,10 @@ engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 engine.setProperty('rate', 120)
 # engine.setProperty('voice', voices[0].id)
- 
-# this method is for taking the commands
-# and recognizing the command from the
-# speech_Recognition module we will use
-# the recongizer method for recognizing
-# def takeCommand(): 
-#     r = sr.Recognizer()
-#     with sr.Microphone() as source:
-#         query = ""
-#         while True:
-#             print('Listening...')
-#             r.pause_threshold = 0.7
-#             audio = r.listen(source)
-            
-#             try:
-#                 print("Recognizing")
-                
-#                 query = r.recognize_google(audio, language='en-US')
-#                 print("the command is printed=", query)
-                
-#             except Exception as e:
-#                 print(e)
-#                 print("Say that again sir")
-            
-#             if query != "":
-#                 break
-            
-#         return query
+
 
 def speak(audio):
-     
-    # engine = pyttsx3.init()
-    # getter method(gets the current value
-    # of engine property)
-    # voices = engine.getProperty('voices')
-     
-    # setter method .[0]=male voice and
-    # [1]=female voice in set Property.
-    # engine.setProperty('voice', voices[0].id)
-     
-    # Method for the speaking of the assistant
-    engine.say(audio) 
-     
-    # Blocks while processing all the currently
-    # queued commands
+    engine.say(audio)
     engine.runAndWait()
 
 def defineLanguage():
