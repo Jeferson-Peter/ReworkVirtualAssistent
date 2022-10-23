@@ -1,6 +1,6 @@
 import pywhatkit as kit
 from helpers import speak
-import time
+
 
 class PlayThings:
     def __init__(self, query: str):
@@ -21,5 +21,3 @@ class PlayThings:
             pass
         kit.playonyt(self.query)
         speak(f'Playing on YouTube {video}')
-
-

@@ -8,7 +8,6 @@ from playsound import playsound
 from helpers import speak, takeCommand
 
 
-
 class Translate:
     def __init__(self, query: str):
         self.query = query.lower()
@@ -29,10 +28,10 @@ class Translate:
             index_translate = phrase_list.index('translate')
             phrase_to_translate = ' '.join(map(str, phrase_list[index_translate+1:]))
             speak("which language do you want to translate?")
-            dest_language = takeCommand().lower()
+            dest_language = takeCommand()
             min_dest_language = self._parse_dest_lang(dest_language)
             while min_dest_language is None:
-                dest_language = takeCommand().lower()
+                dest_language = takeCommand()
                 min_dest_language = self._parse_dest_lang(dest_language)
             if min_dest_language is not None:
                 try:
