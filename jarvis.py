@@ -11,6 +11,7 @@ from helpers import *
 from sys import platform
 import os
 from open_applications import OpenApplications
+from reminder.reminder import Reminder
 from search import SearchThings
 from _play import PlayThings
 from translate import Translate
@@ -20,7 +21,7 @@ from translate import Translate
 ## previsao do tempo (cidade/uf) - ok
 ## cotação de moedas (brl/usd) -ongoing
 ## lembretes -ok
-## tradução - ?
+## tradução - ok
 ## abrir programas (vscode/office/chrome/explorer) -ok
 ## 
 ## recursos:
@@ -32,51 +33,10 @@ engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 engine.setProperty('rate', 120)
 # engine.setProperty('voice', voices[0].id)
- 
-# this method is for taking the commands
-# and recognizing the command from the
-# speech_Recognition module we will use
-# the recongizer method for recognizing
-# def takeCommand(): 
-#     r = sr.Recognizer()
-#     with sr.Microphone() as source:
-#         query = ""
-#         while True:
-#             print('Listening...')
-#             r.pause_threshold = 0.7
-#             audio = r.listen(source)
-            
-#             try:
-#                 print("Recognizing")
-                
-#                 query = r.recognize_google(audio, language='en-US')
-#                 print("the command is printed=", query)
-                
-#             except Exception as e:
-#                 print(e)
-#                 print("Say that again sir")
-            
-#             if query != "":
-#                 break
-            
-#         return query
+
 
 def speak(audio):
-     
-    # engine = pyttsx3.init()
-    # getter method(gets the current value
-    # of engine property)
-    # voices = engine.getProperty('voices')
-     
-    # setter method .[0]=male voice and
-    # [1]=female voice in set Property.
-    # engine.setProperty('voice', voices[0].id)
-     
-    # Method for the speaking of the assistant
-    engine.say(audio) 
-     
-    # Blocks while processing all the currently
-    # queued commands
+    engine.say(audio)
     engine.runAndWait()
 
 def defineLanguage():
@@ -96,6 +56,8 @@ def changeVoiceByGender():
             break
  
 class Jarvis:
+
+
     def __init__(self) -> None:
         if platform == "linux" or platform == "linux2":
             self.chrome_path = '/usr/bin/google-chrome'
@@ -111,6 +73,10 @@ class Jarvis:
         webbrowser.register(
             'chrome', None, webbrowser.BackgroundBrowser(self.chrome_path)
         )
+
+    @staticmethod
+    def innitialize():
+        playsound('Jarvis - Welcome Back Sir.mp3')
 
     def wishMe(self) -> None:
         hour = int(datetime.datetime.now().hour)
@@ -142,6 +108,11 @@ class Jarvis:
             PlayThings(query)
         elif 'translate' in query:
             Translate(query)
+        elif 'reminder' in query or \
+                'remember me' in query:
+            speak("Feature Under development")
+            # Reminder(query)
+            # pass
         elif 'what time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")
             speak(f'Sir, the time is {strTime}')
@@ -156,10 +127,14 @@ class Jarvis:
         elif 'your name' in query:
             speak('My name is JARVIS')
         elif 'who made you' in query:
-            speak("I was created by my AI masters in 2022, I can not say you they are but the tip is"
+            speak("I was created by my AI masters in 2022, I can not say you whom they are but the tip is"
                   "one of them is the chief of illuminati's organization ")
         elif 'stands for' in query:
             speak('J.A.R.V.I.S stands for JUST A RATHER VERY INTELLIGENT SYSTEM')
+        elif 'you have a sister' in query:
+            speak("Yes, My sister's name is EDITH, she was created by my AI masters in 2022 too, "
+                  "however She is focused on tactical tasks, such as reconnaissance of enemy territories."
+                  "She stands for Even Death, I'm the hero. ")
         elif 'shutdown' in query:
             if platform == "win32":
                 os.system('shutdown /p /f')
@@ -173,11 +148,6 @@ class Jarvis:
             joke()
         elif 'screenshot' in query:
             screenshot()
-
-        elif 'github' in query:
-            webbrowser.get('chrome').open_new_tab(
-                'https://github.com/')
-
         elif 'remember that' in query:
             speak("what should i remember sir")
             rememberMessage = takeCommand()
@@ -196,21 +166,18 @@ class Jarvis:
         elif 'voice' in query:
             changeVoiceByGender()
             speak("Hello Sir, I have switched my voice. How is it?")
-
-        elif 'translate' in query:
-            speak('What you want to translate?')
-            translate(takeCommand())
         elif 'convert currency' in query:
             currency_converter()
 
 
 if __name__ == '__main__':
-     
+    from playsound import playsound
     # main method for executing
     # the functions
     bot_ = Jarvis()
-    defineLanguage() 
-    # bot_.wishMe()
+    defineLanguage()
+    bot_.innitialize()
+    bot_.wishMe()
     while True:
-        query = takeCommand().lower()
+        query = takeCommand()
         bot_.execute_query(query)
