@@ -115,7 +115,8 @@ def currency_converter():
 
     valueConverted = convert(value, currency, converter)
 
-    speak("this value equals " + valueConverted + converter + "in the current quote")
+    speak("this value equals " + str(valueConverted) + converter + "in the current quote")
+    print("this value equals " + str(valueConverted) + converter + "in the current quote")
 
 def convert(value, currency, converter):
     try:
@@ -137,14 +138,26 @@ def convert(value, currency, converter):
 def getActualCurrencyValue():
     speak("What's the value you want to convert?")
     value = takeCommand()
-    return value
+    try:
+        int(value) or float(value)
+        return value
+    except:
+        getActualCurrencyValue()
 
 def getActualCurrency():
     speak("What's the actual currency?")
     currency = takeCommand()
-    return currency
+    try:
+        isinstance(currency, str)
+        return currency.upper()
+    except:
+        getActualCurrency()
 
 def getCurrencyToChange():
     speak("What's the currency you want to convert?")
     converter = takeCommand()
-    return converter
+    try:
+        isinstance(converter, str)
+        return converter.upper()
+    except:
+        getCurrencyToChange()
