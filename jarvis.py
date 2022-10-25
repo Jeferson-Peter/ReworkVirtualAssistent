@@ -59,20 +59,7 @@ class Jarvis:
 
 
     def __init__(self) -> None:
-        if platform == "linux" or platform == "linux2":
-            self.chrome_path = '/usr/bin/google-chrome'
-
-        elif platform == "darwin":
-            self.chrome_path = 'open -a /Applications/Google\ Chrome.app'
-
-        elif platform == "win32":
-            self.chrome_path = 'C:\Program Files (x86)\Google\ChromeDriver\chromedriver.exe'
-        else:
-            print('Unsupported OS')
-            exit(1)
-        webbrowser.register(
-            'chrome', None, webbrowser.BackgroundBrowser(self.chrome_path)
-        )
+        pass
 
     @staticmethod
     def innitialize():
@@ -93,8 +80,6 @@ class Jarvis:
 
 
     def execute_query(self, query):
-        if 'Optical Text Recognition' or 'Text Recognition' in query:
-            pass
         if 'jarvis are you there' in query:
             speak("Yes Sir, at your service")
         if 'jarvis who made you' in query:
@@ -120,7 +105,7 @@ class Jarvis:
             speak('What is the location?')
             location = takeCommand()
             url = 'https://google.nl/maps/place/' + location + '/&amp;'
-            webbrowser.get('chrome').open_new_tab(url)
+            webbrowser.open_new_tab(url)
             speak('Here is the location ' + location)
         elif 'your master' in query:
                 speak('I have a team who created me a couple of days ago')
@@ -177,7 +162,7 @@ if __name__ == '__main__':
     bot_ = Jarvis()
     defineLanguage()
     bot_.innitialize()
-    bot_.wishMe()
+    # bot_.wishMe()
     while True:
         query = takeCommand()
         bot_.execute_query(query)
