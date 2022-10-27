@@ -139,15 +139,6 @@ def convert(value, currency, converter):
         valueConverted = c.convert(value, currency, converter)
     except Exception as e:
         print(e)
-        ## actual currency error
-        ## if ()
-        ##      value = getActualCurrencyValue()
-        ## currency error
-        ## if ()
-        ##      currency = getActualCurrency()
-        ## converter error
-        ## if ()
-        ##      converter = getCurrencyToChange()
         convert(value, currency, converter)
     return valueConverted
 
