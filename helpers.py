@@ -12,7 +12,6 @@ import os
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
-# engine.setProperty('voice', voices[0].id)
 g = geocoder.ip('me')
 data = json.load(open('data.json'))
 c = CurrencyConverter()
@@ -121,9 +120,12 @@ def translate(word):
     else:
         speak("Word doesn't exist. Please double check it.")
 
-## currency = actual currency
-## converter = convert to
 def currency_converter():
+
+    currencies = {
+        'dollar': 'USD',
+        'real': 'BRL'
+    }
 
     value = getActualCurrencyValue()
     currency = getActualCurrency()
@@ -156,7 +158,8 @@ def getActualCurrency():
     currency = takeCommand()
     try:
         isinstance(currency, str)
-        return currency.upper()
+        if currency in currencies.keys
+            return currencies[currency]
     except:
         getActualCurrency()
 
@@ -165,6 +168,7 @@ def getCurrencyToChange():
     converter = takeCommand()
     try:
         isinstance(converter, str)
-        return converter.upper()
+        if currency in currencies.keys
+            return currencies[currency]
     except:
         getCurrencyToChange()
