@@ -37,3 +37,10 @@ Available Features:
 * `voice` => Change voice
 * `convert currency` => Convert currency
 * `weather/temperature` => Tha actual Weather
+
+### AI Creators
+```
+{
+ academics: ['Guilherme Lacerda Demko', 'Jeferson Peter', 'Vitor Stinghen']
+}
+```
