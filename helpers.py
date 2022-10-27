@@ -127,14 +127,19 @@ def translate(word):
 
 def currency_converter():
 
+    currencies = {
+        'dollar': 'USD',
+        'real': 'BRL'
+    }
+
     value = getActualCurrencyValue()
     currency = getActualCurrency()
     converter = getCurrencyToChange()
 
     valueConverted = convert(value, currency, converter)
 
-    speak("this value equals " + str(valueConverted) + " " + converter + " " + "in the current quote")
-    print("this value equals " + str(valueConverted) + " " +converter + " " + "in the current quote")
+    speak("this value equals " + str(valueConverted) + converter + "in the current quote")
+    print("this value equals " + str(valueConverted) + converter + "in the current quote")
 
 def convert(value, currency, converter):
     try:
@@ -142,7 +147,7 @@ def convert(value, currency, converter):
     except Exception as e:
         print(e)
         convert(value, currency, converter)
-    return round(valueConverted, 2)
+    return valueConverted
 
 def getActualCurrencyValue():
     speak("What's the value you want to convert?")
