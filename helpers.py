@@ -155,7 +155,7 @@ def getActualCurrencyValue():
 
 def getActualCurrency():
     speak("What's the actual currency?")
-    currency = takeCommand()
+    currency = takeCommand().lower()
     try:
         isinstance(currency, str)
         if currency in currencies.keys
@@ -165,7 +165,7 @@ def getActualCurrency():
 
 def getCurrencyToChange():
     speak("What's the currency you want to convert?")
-    converter = takeCommand()
+    converter = takeCommand().lower()
     try:
         isinstance(converter, str)
         if currency in currencies.keys
