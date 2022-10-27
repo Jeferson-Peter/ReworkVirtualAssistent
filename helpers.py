@@ -17,9 +17,25 @@ g = geocoder.ip('me')
 data = json.load(open('data.json'))
 c = CurrencyConverter()
 
+
+def get_location():
+    g = geocoder.ip('me')
+    return g
+
+
+def get_lat_long():
+    location = get_location()
+    return location.lat, location.lng
+
+def get_ip_address():
+    location = get_location()
+    return location.ip
+
+
 def speak(audio) -> None:
     engine.say(audio)
     engine.runAndWait()
+
 
 def screenshot() -> None:
     img = pyautogui.screenshot()
@@ -123,15 +139,6 @@ def convert(value, currency, converter):
         valueConverted = c.convert(value, currency, converter)
     except Exception as e:
         print(e)
-        ## actual currency error
-        ## if ()
-        ##      value = getActualCurrencyValue()
-        ## currency error
-        ## if ()
-        ##      currency = getActualCurrency()
-        ## converter error
-        ## if ()
-        ##      converter = getCurrencyToChange()
         convert(value, currency, converter)
     return valueConverted
 

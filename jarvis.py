@@ -1,38 +1,18 @@
-import pyttsx3
-import speech_recognition as sr
-import webbrowser 
-import datetime 
-import os
+import webbrowser
+import datetime
 import sys
-import smtplib
-# from OCR import OCR
 from diction import translate
 from helpers import *
 from sys import platform
 import os
 from open_applications import OpenApplications
-from reminder.reminder import Reminder
 from search import SearchThings
 from _play import PlayThings
 from translate import Translate
-## Defined English as Standard language
-## todo: 
-## pesquisa por voz - ok
-## previsao do tempo (cidade/uf) - ok
-## cotação de moedas (brl/usd) -ongoing
-## lembretes -ok
-## tradução - ok
-## abrir programas (vscode/office/chrome/explorer) -ok
-## 
-## recursos:
-## nlp (natural language processor)
-## ibm watson/ google cloud
-## speech to text
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 engine.setProperty('rate', 120)
-# engine.setProperty('voice', voices[0].id)
 
 
 def speak(audio):
@@ -59,20 +39,7 @@ class Jarvis:
 
 
     def __init__(self) -> None:
-        if platform == "linux" or platform == "linux2":
-            self.chrome_path = '/usr/bin/google-chrome'
-
-        elif platform == "darwin":
-            self.chrome_path = 'open -a /Applications/Google\ Chrome.app'
-
-        elif platform == "win32":
-            self.chrome_path = 'C:\Program Files (x86)\Google\ChromeDriver\chromedriver.exe'
-        else:
-            print('Unsupported OS')
-            exit(1)
-        webbrowser.register(
-            'chrome', None, webbrowser.BackgroundBrowser(self.chrome_path)
-        )
+        pass
 
     @staticmethod
     def innitialize():
@@ -93,8 +60,6 @@ class Jarvis:
 
 
     def execute_query(self, query):
-        if 'Optical Text Recognition' or 'Text Recognition' in query:
-            pass
         if 'jarvis are you there' in query:
             speak("Yes Sir, at your service")
         if 'jarvis who made you' in query:
@@ -111,8 +76,6 @@ class Jarvis:
         elif 'reminder' in query or \
                 'remember me' in query:
             speak("Feature Under development")
-            # Reminder(query)
-            # pass
         elif 'what time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")
             speak(f'Sir, the time is {strTime}')
@@ -120,7 +83,7 @@ class Jarvis:
             speak('What is the location?')
             location = takeCommand()
             url = 'https://google.nl/maps/place/' + location + '/&amp;'
-            webbrowser.get('chrome').open_new_tab(url)
+            webbrowser.open_new_tab(url)
             speak('Here is the location ' + location)
         elif 'your master' in query:
                 speak('I have a team who created me a couple of days ago')
@@ -168,12 +131,12 @@ class Jarvis:
             speak("Hello Sir, I have switched my voice. How is it?")
         elif 'convert currency' in query:
             currency_converter()
+        elif 'weather' in query or 'temperature' in query:
+            weather()
 
 
 if __name__ == '__main__':
     from playsound import playsound
-    # main method for executing
-    # the functions
     bot_ = Jarvis()
     defineLanguage()
     bot_.innitialize()
