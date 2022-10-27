@@ -16,6 +16,11 @@ g = geocoder.ip('me')
 data = json.load(open('data.json'))
 c = CurrencyConverter()
 
+currencies = {
+    'dollar': 'USD',
+    'real': 'BRL'
+}
+
 
 def get_location():
     g = geocoder.ip('me')
@@ -122,19 +127,14 @@ def translate(word):
 
 def currency_converter():
 
-    currencies = {
-        'dollar': 'USD',
-        'real': 'BRL'
-    }
-
     value = getActualCurrencyValue()
     currency = getActualCurrency()
     converter = getCurrencyToChange()
 
     valueConverted = convert(value, currency, converter)
 
-    speak("this value equals " + str(valueConverted) + converter + "in the current quote")
-    print("this value equals " + str(valueConverted) + converter + "in the current quote")
+    speak("this value equals " + str(valueConverted) + " " + converter + " " + "in the current quote")
+    print("this value equals " + str(valueConverted) + " " +converter + " " + "in the current quote")
 
 def convert(value, currency, converter):
     try:
@@ -142,7 +142,7 @@ def convert(value, currency, converter):
     except Exception as e:
         print(e)
         convert(value, currency, converter)
-    return valueConverted
+    return round(valueConverted, 2)
 
 def getActualCurrencyValue():
     speak("What's the value you want to convert?")
@@ -154,21 +154,23 @@ def getActualCurrencyValue():
         getActualCurrencyValue()
 
 def getActualCurrency():
+    has_value = False
     speak("What's the actual currency?")
-    currency = takeCommand()
-    try:
-        isinstance(currency, str)
-        if currency in currencies.keys
+    while not has_value:
+        currency = takeCommand().lower()
+        if currency in currencies.keys():
+            has_value = True
             return currencies[currency]
-    except:
-        getActualCurrency()
+        else:
+            speak("Currency not found, please try again?")
 
 def getCurrencyToChange():
+    has_value = False
     speak("What's the currency you want to convert?")
-    converter = takeCommand()
-    try:
-        isinstance(converter, str)
-        if currency in currencies.keys
+    while not has_value:
+        currency = takeCommand().lower()
+        if currency in currencies.keys():
+            has_value = True
             return currencies[currency]
-    except:
-        getCurrencyToChange()
+        else:
+            speak("Currency not found, please try again?")

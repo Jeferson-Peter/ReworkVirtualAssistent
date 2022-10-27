@@ -77,7 +77,7 @@ class Jarvis:
                 'remember me' in query:
             speak("Feature Under development")
         elif 'what time' in query:
-            strTime = datetime.datetime.now().strftime("%H:%M:%S")
+            strTime = datetime.datetime.now().strftime("%I:%M:%S%p")
             speak(f'Sir, the time is {strTime}')
         elif 'location' in query:
             speak('What is the location?')
