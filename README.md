@@ -8,6 +8,7 @@
 6. In this repository will have a file called `requirements.txt`, we need to watch out here because, its important to keep mantaining the installed version of all packages:
  - First, in your terminal run `pip freeze > requirements.txt`, idiomatically to freeze versions;
  - Secondly, run `pip install -r requirements.txt`, this will install all the packages in the specified versions;
+7. To run the assistent type `python jarvis.py`
 
 Available Features:
 
